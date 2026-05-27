@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МТС-Банк | Контакты</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        let topBtn = document.getElementById('goTopBtn');
+        if (topBtn) {
+            topBtn.onclick = function(btn) {
+                btn.preventDefault();
+                window.scrollTo(0, 0);
+            };
+        }
+    </script>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo-side">
+        <img src="logo.jpg" alt="МТС Банк">
+        <h3>МТС-Банк</h3>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">О компании</a></li>
+            <li><a href="news.html">Новости</a></li>
+            <li><a href="currency.html">Курс валют</a></li>
+            <li><a href="video.html">Видео</a></li>
+            <li><a href="contacts.html" class="active">Контакты</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="main-content">
+    <a href="#" class="go-top" id="goTopBtn">↑</a>
+    <h1 class="section-title">Контактные данные</h1>
+
+    <div class="card">
+        <h2>Свяжитесь с нами</h2>
+        
+        <div class="contact-item">
+            <strong>Головной офис:</strong>
+            <span>г. Новосибирск, ул. Ленина, д. 56</span>
+        </div>
+        
+        <div class="contact-item">
+            <strong>Горячая линия:</strong>
+            <span>+7 (800) 250-05-20 (круглосуточно, бесплатно)</span>
+        </div>
+        
+        <div class="contact-item">
+            <strong>Для звонков из-за рубежа:</strong>
+            <span>+7 495 222-25-05</span>
+        </div>
+        
+        <div class="contact-item">
+            <strong>E-mail:</strong>
+            <span><a href="mailto:support@mtsbank.ru">support@mtsbank.ru</a></span>
+        </div>
+        
+        <div class="contact-item">
+            <strong>Чат-бот:</strong>
+            <span><a href="https://t.me/mtsbank_bot" target="_blank">@mtsbank_bot (Telegram)</a></span>
+        </div>
+        
+        <div class="contact-item">
+            <strong>Режим работы отделений:</strong>
+            <span>Пн–Пт 9:00–20:00, Сб 10:00–17:00, Вс — выходной</span>
+        </div>
+        
+        <div class="contact-item">
+            <strong>Официальный сайт:</strong>
+            <span><a href="https://www.mtsbank.ru" target="_blank">www.mtsbank.ru</a></span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Интерактивная карта (офис в Новосибирске)</h2>
+        
+        <div class="map-container">
+            <iframe 
+                class="map-frame"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2284.2921831533295!2d82.9179230769162!3d55.03031226597035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x42dfe5b1c4b2f9c1%3A0x5e2b3c4f5a6b7c8d!2z0YPQuy4g0JvQtdC90LjQvdCwLCA1Niwg0J3QvtCy0L7RgdC40LHQuNGA0YHQuiwg0J3QvtCy0L7RgdC40LHQuNGA0YHQutCw0Y8g0L7QsdC7LiwgNjMwMDc1!5e0!3m2!1sru!2sru!4v1710000000000!5m2!1sru!2sru" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+        <p class="map-note">Офис в Новосибирске на карте (ул. Ленина, 56)</p>
+    </div>
+
+    <div class="card">
+        <h2>Банкоматы и отделения</h2>
+        <p>Более <strong>15 отделений</strong> и <strong>200 банкоматов</strong> в Новосибирске и области. Найти ближайшее отделение можно в мобильном приложении МТС-Банка или на <a href="https://www.mtsbank.ru/offices/" target="_blank">сайте банка</a>.</p>
+        <p><strong>Реквизиты ПАО «МТС-Банк»:</strong> ИНН 7702045051, БИК 044525232</p>
+    </div>
+
+    <footer>© 2025 МТС-Банк. Все права защищены.</footer>
+</div>
+</body>
+</html>

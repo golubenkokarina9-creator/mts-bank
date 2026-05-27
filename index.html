@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>МТС-Банк | О компании</title>
+    <script src="index.js"></script>
+    <script>
+        function initTopBtn() {
+            let topBtn = document.getElementById('goTopBtn');
+            if (topBtn) {
+                topBtn.onclick = function(btn) {
+                    btn.preventDefault();
+                    window.scrollTo(0, 0);
+                };
+            }
+        }
+        
+        function renderProducts() {
+            let grid = document.getElementById('productsGrid');
+            if (!grid) return;
+            
+            for (let i = 0; i < product_data.length; i++) {
+                let product = product_data[i];
+                
+                let card = document.createElement('div');
+                card.className = 'product-card';
+                
+                let imgDiv = document.createElement('div');
+                imgDiv.className = 'product-img';
+                let img = document.createElement('img');
+                img.src = product.img;
+                img.alt = product.title;
+                imgDiv.appendChild(img);
+                
+                let titleDiv = document.createElement('div');
+                titleDiv.className = 'product-title';
+                titleDiv.innerHTML = product.title;
+                
+                let descDiv = document.createElement('div');
+                descDiv.className = 'product-desc';
+                descDiv.id = 'desc_' + i;
+                descDiv.innerHTML = product.shortDesc;
+                
+                card.appendChild(imgDiv);   
+                card.appendChild(titleDiv);  
+                card.appendChild(descDiv);   
+                
+                card.onmouseover = function(index) {
+                    return function() {
+                        let desc = document.getElementById('desc_' + index);
+                        desc.innerHTML = product_data[index].fullDesc;
+                        desc.style.backgroundColor = '#003366';
+                        desc.style.color = 'white';
+                        desc.style.padding = '10px';
+                        desc.style.borderRadius = '12px';
+                        this.style.transform = 'scale(1.02)';
+                        this.style.transition = '0.2s';
+                    }
+                }(i);
+                
+                card.onmouseout = function(index) {
+                    return function() {
+                        let desc = document.getElementById('desc_' + index);
+                        desc.innerHTML = product_data[index].shortDesc;
+                        desc.style.backgroundColor = 'transparent';
+                        desc.style.padding = '0';
+                        this.style.transform = 'scale(1)';
+                    }
+                }(i);
+                
+                grid.appendChild(card);
+            }
+        }
+        
+        // история
+        function initTimeline() {
+            let yearItems = document.querySelectorAll('.year-item');
+            let eventItems = document.querySelectorAll('.event-item');
+
+            for (let i = 0; i < yearItems.length; i++) {
+                yearItems[i].onclick = function() {
+                    for (let j = 0; j < eventItems.length; j++) {
+                        eventItems[j].classList.remove('active');
+                    }
+                    eventItems[i].classList.add('active');
+                };
+            }
+
+            if (eventItems.length > 0) {
+                eventItems[0].classList.add('active');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initTopBtn();
+            renderProducts();
+            initTimeline();
+        });
+    </script>
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo-side">
+        <img src="logo.jpg" alt="Банк">
+        <h3>MTC-Банк</h3>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html" class="active">О компании</a></li>
+            <li><a href="news.html">Новости</a></li>
+            <li><a href="currency.html">Курс валют</a></li>
+            <li><a href="video.html">Видео</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="main-content">
+    <a href="#" class="go-top" id="goTopBtn">↑</a>
+    <h1 class="section-title">О компании МТС-Банк</h1>
+    <div class="card">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2>МТС-Банк: цифровой лидер</h2>
+                <p>
+                    <strong>МТС-Банк</strong> 
+                    (ПАО «МТС-Банк») — универсальный банк, входящий в ТОП-50 по активам в РФ. <strong>Год основания:</strong> 1993 (как «Джи Мани Банк», с 2014 — МТС-Банк). 
+                    <strong>Основатель:</strong> Группа МТС (ПАО «МТС»).
+                </p>
+                <p>
+                    <em>Ключевые направления: розничное кредитование, карты, вклады, ипотека, кредитные карты, экосистема финансов и интеграция с телеком-сервисами. 
+                    Банк активно развивает <u>дистанционные каналы обслуживания</u> и сотрудничает с крупнейшими маркетплейсами.</em>
+                </p>
+                <p>
+                    <strong>Стратегия 2025:</strong> войти в топ-5 по объёму транзакций физических лиц, увеличить портфель кредитных карт на 40%. 
+                    <a href="https://www.mtsbank.ru/" target="_blank" style="color:#2a0a71; text-decoration: none;">Официальный сайт</a> | 
+                    <a href="https://www.mtsbank.ru/chastnim-licam/krediti/" style="color:#2a0a71; text-decoration: none;">Кредитные продукты</a>
+                </p>
+            </div>
+            <div class="about-img">
+                <img src="mts.jpg" alt="логотип" style="max-width:100%;">
+                <div class="founders-block"><strong>Председатель правления:</strong> Игорь Додонов.<br> <strong>Акционер:</strong> ПАО «МТС» (100%).</div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="about-grid">
+            <div class="about-text">
+                <h2>Банк сегодня: цифры и достижения</h2>
+                <p>
+                    <strong>Активы:</strong> более 490 млрд ₽ (2024), <strong>капитал:</strong> 48 млрд ₽. Обслуживает свыше <u>9 млн активных клиентов</u>, 
+                    выпущено более 2,5 млн кредитных карт. Рейтинг «Эксперт РА» — ruA+.
+                </p>
+                <p><i>Ключевые проекты:</i> совместная программа с Ozon, «МТС Кэшбэк», интеграция с МТС ID. Банк получил премию «Лучший мобильный банк для бизнеса 2023».</p>
+        
+            </div>
+
+            <div class="about-img">
+                <img src="orig.jpg" alt="офис банка" style="width:100%; max-width:450px; border-radius:20px;" >
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>История МТС-Банка</h2>
+        <div class="timeline-horizontal">
+            <div class="timeline-years">
+                <div class="year-item">2024</div>
+                <div class="year-item">2023</div>
+                <div class="year-item">2022</div>
+                <div class="year-item">2021</div>
+                <div class="year-item">2020</div>
+                <div class="year-item">2019</div>
+                <div class="year-item">2018</div>
+                <div class="year-item">2017</div>
+                <div class="year-item">2016</div>
+                <div class="year-item">2015</div>
+                <div class="year-item">2014</div>
+                <div class="year-item">2013</div>
+            </div>
+            <div class="timeline-line"></div>
+            <div class="timeline-events">
+                <div class="event-item">
+                    <ul>
+                        <li>«Эксперт РА» подтвердил кредитный рейтинг МТС Банка на уровне ruA со стабильным прогнозом</li>
+                        <li>НКР подтвердило кредитные рейтинги МТС Банка и его облигаций на уровне A.ru</li>
+                        <li>IPO МТС Банка стало рекордным по объему спроса и количеству заявок инвесторов</li>
+                        <li>Приложение МТС Банка стало лучшим в RuStore</li>
+                        <li>МТС Банк второй год подряд в лидерах ESG-индекса НКР и РБК</li>
+                        <li>МТС Банк провел B2B-платежи в цифровых рублях</li>
+                    </ul>
+                </div>
+                <div class="event-item">
+                    <ul>
+                        <li>МТС Банк вошел в топ-3 по выдаче кредитных карт</li>
+                        <li>Запущена программа лояльности «МТС Кэшбэк»</li>
+                        <li>Премия «Лучший мобильный банк для бизнеса»</li>
+                    </ul>
+                </div>
+                <div class="event-item">
+                    <ul>
+                        <li>Интеграция с экосистемой МТС</li>
+                        <li>Запуск биометрической идентификации в приложении</li>
+                        <li>Клиентская база превысила 8 млн человек</li>
+                    </ul>
+                </div>
+                <div class="event-item">
+                    <ul>
+                        <li>МТС Банк занял 3 место по темпам прироста кредитного портфеля</li>
+                        <li>Запуск инвестиционных счетов</li>
+                    </ul>
+                </div>
+                <div class="event-item">
+                    <ul>
+                        <li>Цифровая трансформация банка</li>
+                        <li>Запуск полностью цифровой ипотеки</li>
+                    </ul>
+                </div>
+                <div class="event-item"><ul><li>Развитие мобильного банка</li><li>Рост числа клиентов</li></ul></div>
+                <div class="event-item"><ul><li>Запуск новых кредитных продуктов</li></ul></div>
+                <div class="event-item"><ul><li>Расширение сети отделений</li></ul></div>
+                <div class="event-item"><ul><li>Внедрение технологий искусственного интеллекта</li></ul></div>
+                <div class="event-item"><ul><li>Укрепление позиций на рынке</li></ul></div>
+                <div class="event-item"><ul><li>Ребрендинг в МТС-Банк</li><li>Начало активной интеграции с МТС</li></ul></div>
+                <div class="event-item"><ul><li>Развитие экосистемы</li><li>Новые партнерства</li></ul></div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h2>Продукты и инновации</h2>
+        <p>
+            <strong>МТС Деньги</strong> — экосистема финансовых сервисов: вклады до 18% годовых, кредитные карты с беспроцентным периодом до 120 дней, ипотека на льготных условиях.
+            Банк первым запустил <em>биометрическую идентификацию</em> в мобильном приложении.
+        </p>
+        <p><u>Партнерская сеть:</u> более 40 000 точек обслуживания, интеграция с AliExpress, Wildberries. Количество транзакций в год превышает 200 млн.</p>
+        <p><strong>Социальная ответственность:</strong> МТС-Банк реализует программы финансовой грамотности для школьников.</p>
+    </div>
+    
+    <div class="card">
+        <h2>Популярные продукты МТС-Банка</h2>
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+    <footer>© 2025 МТС-Банк. Все права защищены.</footer>
+</div>
+</body>
+</html>

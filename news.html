@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>МТС-Банк | Новости</title>
+    <link rel="stylesheet" href="style1.css">
+    <script src="news.js"></script>
+    <script>
+        function renderNews() {
+            let grid = document.getElementById('newsGrid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < news_data.length; i++) {
+                let item = news_data[i];
+                let card = document.createElement('div');
+                card.className = 'news-card';
+                
+                let preview = item.full.substring(0, 70) + '...';
+                
+                card.innerHTML = '<div class="news-date">' + item.date + '</div>' +
+                                '<h3 class="news-title">' + item.title + '</h3>' +
+                                '<p class="news-preview">' + preview + '</p>' +
+                                '<button class="btn-show" data-idx="' + i + '">Показать полностью</button>';
+                
+                grid.appendChild(card);
+            }
+            
+            let modal = document.getElementById('newsModal');
+            let closeSpan = document.querySelector('.close-modal');
+            
+            let buttons = document.querySelectorAll('.btn-show');
+            for (let i = 0; i < buttons.length; i++) {
+                let btn = buttons[i];
+                btn.onclick = function() {
+                    let idx = btn.getAttribute('data-idx');
+                    let newsItem = news_data[idx];
+                    document.getElementById('modalTitle').innerText = newsItem.title;
+                    document.getElementById('modalFullText').innerText = newsItem.full;
+                    modal.style.display = 'flex';
+                };
+            }
+            
+            if (closeSpan) {
+                closeSpan.onclick = function() {
+                    modal.style.display = 'none';
+                };
+            }
+            
+            window.onclick = function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+        }
+        
+        let topBtn = document.getElementById('goTopBtn');
+        if (topBtn) {
+            topBtn.onclick = function(btn) {
+                btn.preventDefault();
+                window.scrollTo(0, 0);
+            };
+        }
+        
+        document.addEventListener('DOMContentLoaded', renderNews);
+    </script>
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo-side"><img src="logo.jpg" alt="logo"><h3>МТС Банк</h3></div>
+    <nav><ul>
+        <li><a href="index.html">О компании</a></li>
+        <li><a href="news.html" class="active">Новости</a></li>
+        <li><a href="currency.html">Курс валют</a></li>
+        <li><a href="video.html">Видео</a></li>
+        <li><a href="contacts.html">Контакты</a></li>
+    </ul></nav>
+</div>
+<div class="main-content">
+    <a href="#" class="go-top" id="goTopBtn">↑</a>
+    <h1 class="section-title">Новости МТС-Банка</h1>
+    <div class="news-grid" id="newsGrid"></div>
+    <footer>© 2025 МТС-Банк. Все права защищены.</footer>
+</div>
+<div id="newsModal" class="modal"><div class="modal-content"><span class="close-modal">&times;</span><h3 id="modalTitle"></h3><p id="modalFullText"></p></div></div>
+</body>
+</html>

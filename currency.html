@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>МТС-Банк | Курс валют</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo-side">
+        <img src="logo.jpg" alt="МТС Банк">
+        <h3>МТС-Банк</h3>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">О компании</a></li>
+            <li><a href="news.html">Новости</a></li>
+            <li><a href="currency.html" class="active">Курс валют</a></li>
+            <li><a href="video.html">Видео</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="main-content">
+    <a href="#" class="go-top" id="goTopBtn">↑</a>
+    <h1 class="section-title">Курс валют: Грузинский лари (GEL)</h1>
+
+    <div class="card">
+        <div class="rate-info">
+            <p>Текущий курс: <strong><span id="gelRate">Загрузка...</span> ₽</strong> за 1 GEL</p>
+        </div>
+        
+        <div class="conv-flex">
+            <div class="conv-group">
+                <label>Рубли (RUB)</label>
+                <input type="number" id="rubInput" value="1000">
+            </div>
+            <div class="conv-group">
+                <label>Грузинские лари (GEL)</label>
+                <input type="number" id="gelInput" value="0" readonly>
+            </div>
+            <div class="conv-group">
+                <button id="convertBtn">Рассчитать</button>
+            </div>
+            <div class="conv-group">
+                <button id="refreshBtn">🔄 Обновить курс</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Изменение курса GEL за 3 месяца (февраль-апрель 2026)</h3>
+        <div id="chartContainer" style="overflow-x: auto;">
+            <div id="barChart" class="bar-chart"></div>
+        </div>
+        <p id="clickInfo" style="text-align: center; margin-top: 10px;">Нажмите на столбец, чтобы увидеть дату и курс</p>
+    </div>
+
+    <footer>© 2025 МТС-Банк. Все права защищены.</footer>
+</div>
+
+<script>
+    const historicalDates = [
+        "03.02", "04.02", "05.02", "06.02", "07.02", "10.02", "11.02", "12.02", "13.02", "14.02",
+        "17.02", "18.02", "19.02", "20.02", "21.02", "24.02", "25.02", "26.02", "27.02", "28.02",
+        "03.03", "04.03", "05.03", "06.03", "07.03", "10.03", "11.03", "12.03", "13.03", "14.03",
+        "17.03", "18.03", "19.03", "20.03", "21.03", "24.03", "25.03", "26.03", "27.03", "28.03",
+        "31.03", "01.04", "02.04", "03.04", "04.04", "07.04", "08.04", "09.04", "10.04", "11.04",
+        "14.04", "15.04", "16.04", "17.04", "18.04", "21.04", "22.04", "23.04", "24.04", "25.04",
+        "28.04", "29.04", "30.04"
+    ];
+    
+    const historicalRates = [
+        27.15, 27.12, 27.08, 27.05, 27.02, 26.98, 26.95, 26.92, 26.89, 26.86,
+        26.83, 26.80, 26.77, 26.74, 26.71, 26.68, 26.65, 26.62, 26.60, 26.58,
+        26.55, 26.52, 26.50, 26.48, 26.45, 26.42, 26.40, 26.38, 26.35, 26.33,
+        26.30, 26.28, 26.26, 26.24, 26.22, 26.20, 26.18, 26.16, 26.14, 26.12,
+        26.10, 26.08, 26.06, 26.04, 26.02, 26.00, 25.98, 25.96, 25.95, 25.93,
+        25.91, 25.89, 25.87, 25.85, 25.83, 25.81, 25.79, 25.77, 25.75, 25.73,
+        26.85, 26.82, 26.79
+    ];
+    
+    let currentRate = 26.79;  // последний известный курс
+    let rubInput = document.getElementById('rubInput');
+    let gelInput = document.getElementById('gelInput');
+    let gelRateSpan = document.getElementById('gelRate');
+    let convertBtn = document.getElementById('convertBtn');
+    let refreshBtn = document.getElementById('refreshBtn');
+    let topBtn = document.getElementById('goTopBtn');
+    
+
+    window.CBR_XML_Daily_Ru = function(data) {
+        if (data && data.Valute && data.Valute.GEL) {
+            currentRate = data.Valute.GEL.Value;
+            gelRateSpan.innerHTML = currentRate.toFixed(4) + ' ₽';
+        } else {
+            gelRateSpan.innerHTML = currentRate.toFixed(4) + ' ₽ (запасной)';
+        }
+        convertValue();
+    };
+    
+    // загрузка курса
+    function loadCurrentRate() {
+        let script = document.createElement('script');
+        script.src = 'https://www.cbr-xml-daily.ru/daily_jsonp.js';
+        document.body.appendChild(script);
+        
+        setTimeout(function() {
+            if (gelRateSpan.innerHTML === 'Загрузка...') {
+                gelRateSpan.innerHTML = currentRate.toFixed(4) + ' ₽ (запасной)';
+            }
+        }, 3000);
+    }
+    
+    // диаграмма
+    function drawChart() {
+        let maxRate = Math.max(...historicalRates);
+        let minRate = Math.min(...historicalRates);
+        let chartDiv = document.getElementById('barChart');
+        chartDiv.innerHTML = '';
+        chartDiv.className = 'bar-chart';
+        
+        for (let i = 0; i < historicalRates.length; i++) {
+            let barHeight = (historicalRates[i] / maxRate) * 150;
+            if (barHeight < 25) barHeight = 25;
+            
+            let barItem = document.createElement('div');
+            barItem.className = 'bar-item';
+            
+            let bar = document.createElement('div');
+            bar.className = 'bar';
+            bar.style.height = barHeight + 'px';
+            
+            let valueLabel = document.createElement('div');
+            valueLabel.innerHTML = historicalRates[i].toFixed(2);
+            valueLabel.className = 'bar-value';
+            
+            let dateLabel = document.createElement('div');
+            dateLabel.innerHTML = historicalDates[i];
+            dateLabel.className = 'bar-label';
+            
+            barItem.appendChild(bar);
+            barItem.appendChild(valueLabel);
+            barItem.appendChild(dateLabel);
+            
+            barItem.onclick = (function(rate, date) {
+                return function() {
+                    document.querySelectorAll('.bar-item').forEach(el => {
+                        el.style.backgroundColor = 'transparent';
+                        let b = el.querySelector('.bar');
+                        if (b) b.style.border = 'none';
+                    });
+                    this.style.backgroundColor = '#fff8e1';
+                    let b = this.querySelector('.bar');
+                    if (b) b.style.border = '2px solid #003366';
+                    document.getElementById('clickInfo').innerHTML = `📅 ${date} → 1 GEL = ${rate.toFixed(4)} RUB`;
+                };
+            })(historicalRates[i], historicalDates[i]);
+            
+            chartDiv.appendChild(barItem);
+        }
+        
+        // информация о динамике
+        let trend = maxRate - minRate;
+        let trendText = trend > 0 ? `Курс вырос на ${trend.toFixed(2)} ₽ за 3 месяца` : `Курс снизился на ${Math.abs(trend).toFixed(2)} ₽ за 3 месяца`;
+        let infoDiv = document.createElement('div');
+        infoDiv.className = 'trend-info';
+        infoDiv.innerHTML = trendText;
+        chartDiv.parentNode.appendChild(infoDiv);
+    }
+    
+    // калькулятор
+    function convertValue() {
+        let rub = parseFloat(rubInput.value);
+        if (isNaN(rub)) rub = 0;
+        let gel = rub / currentRate;
+        if (isFinite(gel) && gel !== Infinity) {
+            gelInput.value = gel.toFixed(4);
+        } else {
+            gelInput.value = 0;
+        }
+    }
+    
+    function refreshAll() {
+        loadCurrentRate();
+        convertValue();
+    }
+    
+    convertBtn.onclick = convertValue;
+    refreshBtn.onclick = refreshAll;
+    
+    if (topBtn) {
+        topBtn.onclick = function(e) {
+            e.preventDefault();
+            window.scrollTo(0, 0);
+        };
+    }
+    
+    drawChart();
+    refreshAll();
+</script>
+</body>
+</html>

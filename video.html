@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МТС-Банк | Видео</title>
+    <link rel="stylesheet" href="style3.css">
+    
+    <script>
+        let topBtn = document.getElementById('goTopBtn');
+        if (topBtn) {
+            topBtn.onclick = function(btn) {
+                btn.preventDefault();
+                window.scrollTo(0, 0);
+            };
+        }
+    </script>
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="logo-side">
+        <img src="logo.jpg" alt="МТС Банк">
+        <h3>МТС-Банк</h3>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="index.html">О компании</a></li>
+            <li><a href="news.html">Новости</a></li>
+            <li><a href="currency.html">Курс валют</a></li>
+            <li><a href="video.html" class="active">Видео</a></li>
+            <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+    </nav>
+</div>
+
+<div class="main-content">
+    <a href="#" class="go-top" id="goTopBtn">↑</a>
+    <h1 class="section-title">Видео о МТС-Банке</h1>
+
+    <div class="card">
+        <h2>Видео о продуктах компании (RuTube)</h2>
+        
+        <div class="video-container">
+            <iframe 
+                width="790" 
+                height="444" 
+                src="https://rutube.ru/play/embed/72e3ad5a571337e4953268e4a8eebbb0/?skinColor=e53935&t=12" 
+                style="border: none;" 
+                allow="clipboard-write; autoplay" allowFullScreen>
+            </iframe>
+        </div>
+        
+        <div class="video-description">
+            <p>
+                <strong>О видео:</strong> 
+                В новом выпуске шоу «Правда или ложь» говорим с Татьяной Осиной — руководителем центра маркетинговой стратегии и коммуникации МТС Банка. 
+                Закадровый голос спросит обо всем: и об условиях кредитных карт, и о бассейне с деньгами. А Татьяна ответит — у нас все по-честному!
+            </p>
+            <p><strong>Дата выхода:</strong> 2022 год</p>
+            <p><strong>Источник:</strong> RuTube-канал МТС-Банка</p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Другие видео</h2>
+        <p>Больше видео-обзоров и интервью с руководством можно найти на официальном RuTube-канале МТС-Банка.</p>
+    </div>
+
+    <footer>© 2025 МТС-Банк. Все права защищены.</footer>
+</div>
+</body>
+</html>
