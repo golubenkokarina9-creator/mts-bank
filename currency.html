@@ -46,7 +46,7 @@
                 <button id="convertBtn">Рассчитать</button>
             </div>
             <div class="conv-group">
-                <button id="refreshBtn">🔄 Обновить курс</button>
+                <button id="refreshBtn">Обновить курс</button>
             </div>
         </div>
     </div>
@@ -156,7 +156,7 @@
                     this.style.backgroundColor = '#fff8e1';
                     let b = this.querySelector('.bar');
                     if (b) b.style.border = '2px solid #003366';
-                    document.getElementById('clickInfo').innerHTML = `📅 ${date} → 1 GEL = ${rate.toFixed(4)} RUB`;
+                    document.getElementById('clickInfo').innerHTML = `${date} → 1 GEL = ${rate.toFixed(4)} RUB`;
                 };
             })(historicalRates[i], historicalDates[i]);
             
